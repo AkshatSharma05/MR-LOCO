@@ -1,0 +1,50 @@
+<?xml version="1.0" ?>
+<robot name="mr_robot" xmlns:xacro="http://www.ros.org/wiki/xacro" >
+
+    <!-- <gazebo>
+        <plugin filename="gz-sim-imu-system"
+                name="gz::sim::systems::Imu">
+        </plugin>
+    </gazebo>
+
+    <gazebo reference="imu_link">
+        <sensor name="imu_sensor" type="imu">
+        <always_on>true</always_on>
+        <update_rate>100</update_rate>
+        <visualize>true</visualize>
+        <topic>imu</topic>
+        </sensor>
+    </gazebo>    -->
+
+    <gazebo>
+    <!-- Differential Drive Plugin -->
+    <plugin filename="gz-sim-diff-drive-system" 
+            name="gz::sim::systems::DiffDrive">
+        <left_joint>wheel1</left_joint>   
+        <right_joint>wheel2</right_joint> 
+        <wheel_separation>0.199</wheel_separation> 
+        <wheel_radius>0.0535</wheel_radius>     
+        <topic>/cmd_vel</topic>
+    </plugin>
+    </gazebo>
+
+  <gazebo>  
+      <plugin filename="gz-sim-joint-state-publisher-system" name="gz::sim::systems::JointStatePublisher">
+         <topic>/joint_states</topic>
+      </plugin>
+   </gazebo>
+
+    
+    <gazebo>
+      <plugin
+        filename="gz-sim-odometry-publisher-system"
+        name="gz::sim::systems::OdometryPublisher">
+        <odom_frame>odom</odom_frame>
+        <robot_base_frame>base_link</robot_base_frame>
+        <odom_topic>/odom</odom_topic>
+        <tf_topic>/tf</tf_topic>
+
+      </plugin>
+    </gazebo>
+
+</robot>

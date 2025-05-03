@@ -1,0 +1,119 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="urdf">
+
+<xacro:include filename="$(find mr_loco_description)/urdf/robot.gazebo" />
+
+  <!-- Properties -->
+  <xacro:property name="lidar_color" value="0 0 1 1.0"/>
+  <xacro:property name="base_color" value="0.768627 0.886275 0.952941 1.0"/>
+  <xacro:property name="wheel_color" value="0 0 0 1.0"/>
+  <xacro:property name="mesh_path" value="package://assets"/>
+
+  <!-- Link base_link -->
+  <link name="base_link">
+    <inertial>
+      <origin xyz="-0.0195738 0.0793832 0.186679" rpy="0 0 0"/>
+      <mass value="77.9635"/>
+      <inertia ixx="5.83404" ixy="-2.92702e-08" ixz="5.5501e-06" iyy="7.30224" iyz="2.44364e-02" izz="3.22398"/>
+    </inertial>
+
+    <!-- Part lidar -->
+    <visual>
+      <origin xyz="-0.0195741 0.0780334 -0.120293" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file://$(find mr_loco_description)/meshes/lidar.stl" scale="10 10 10"/>
+      </geometry>
+      <material name="lidar_material">
+        <color rgba="${lidar_color}"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.0195741 0.0780334 -0.120293" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file://$(find mr_loco_description)/meshes/lidar.stl" scale="10 10 10"/>
+      </geometry>
+    </collision>
+
+    <!-- Part base_link -->
+    <visual>
+      <origin xyz="-0.0195735 0.0806078 -0.120293" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file://$(find mr_loco_description)/meshes/base_link.stl" scale="10 10 10"/>
+      </geometry>
+      <material name="base_link_material">
+        <color rgba="${base_color}"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.0195735 0.0806078 -0.120293" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="file://$(find mr_loco_description)/meshes/base_link.stl" scale="10 10 10"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- Link wheel_2 -->
+  <link name="wheel_2">
+    <inertial>
+      <origin xyz="6.74047e-18 -1.20259e-18 -0.05" rpy="0 0 0"/>
+      <mass value="13.823"/>
+      <inertia ixx="0.149749" ixy="0" ixz="0" iyy="0.149749" iyz="0" izz="0.27646"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 -1.73472e-17 0.35" rpy="-1.5708 -1.5708 0"/>
+      <geometry>
+        <mesh filename="file://$(find mr_loco_description)/meshes/wheel_2.stl" scale="10 10 10"/>
+      </geometry>
+      <material name="wheel_2_material">
+        <color rgba="${wheel_color}"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 -1.73472e-17 0.35" rpy="-1.5708 -1.5708 0"/>
+      <geometry>
+        <mesh filename="file://$(find mr_loco_description)/meshes/wheel_2.stl" scale="10 10 10"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- Joint base_link to wheel_2 -->
+  <joint name="wheel1" type="continuous">
+    <origin xyz="-0.369574 0.0806078 -0.0952928" rpy="-1.5708 0 -1.5708"/>
+    <parent link="base_link"/>
+    <child link="wheel_2"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <!-- Link wheel_2_2 -->
+  <link name="wheel_2_2">
+    <inertial>
+      <origin xyz="6.74047e-18 1.20259e-18 -0.05" rpy="0 0 0"/>
+      <mass value="13.823"/>
+      <inertia ixx="0.149749" ixy="0" ixz="0" iyy="0.149749" iyz="0" izz="0.27646"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 1.73472e-17 -0.45" rpy="1.5708 1.5708 0"/>
+      <geometry>
+        <mesh filename="file://$(find mr_loco_description)/meshes/wheel_2.stl" scale="10 10 10"/>
+      </geometry>
+      <material name="wheel_2_2_material">
+        <color rgba="${wheel_color}"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 1.73472e-17 -0.45" rpy="1.5708 1.5708 0"/>
+      <geometry>
+        <mesh filename="file://$(find mr_loco_description)/meshes/wheel_2.stl" scale="10 10 10"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- Joint base_link to wheel_2_2 -->
+  <joint name="wheel2" type="continuous">
+    <origin xyz="0.430426 0.0806078 -0.0952928" rpy="-1.5708 0 -1.5708"/>
+    <parent link="base_link"/>
+    <child link="wheel_2_2"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+</robot>
