@@ -84,5 +84,5 @@ def generate_launch_description():
         ros_gz_bridge,
         rviz_node,
         # joint_state_publisher,
-        #static_transform_publisher_node
+        static_transform_publisher_node
     ])
