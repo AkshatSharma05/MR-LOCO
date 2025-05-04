@@ -52,7 +52,7 @@ def generate_launch_description():
                                         "-name", "mr_loco",
                                         "-allow_renaming", "true",
                                         "-z", "1.0",
-                                        "-x", "2.0",
+                                        "-x", "0.0",
                                         "-y", "0.0",
                                         "-Y", "-1.57",
                                         ],
