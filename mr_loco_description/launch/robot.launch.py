@@ -58,13 +58,6 @@ def generate_launch_description():
                                         ],
 							output='screen'
                            )
-
-    joint_state_publisher = Node(
-            package="joint_state_publisher",
-            executable="joint_state_publisher",
-            name="joint_state_publisher",
-            output="screen",
-        )
     
     static_transform_publisher_node = Node(
         package='tf2_ros',
@@ -83,6 +76,5 @@ def generate_launch_description():
         spawn_robot,
         ros_gz_bridge,
         rviz_node,
-        # joint_state_publisher,
         static_transform_publisher_node
     ])

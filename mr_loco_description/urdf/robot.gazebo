@@ -40,4 +40,37 @@
       </plugin>
     </gazebo>
 
+    <gazebo reference="wheel_2">
+  <mu1>1.2</mu1>      <!-- Lateral friction coefficient -->
+  <mu2>1.2</mu2>      <!-- Longitudinal friction coefficient -->
+  <surface>
+    <friction>
+      <ode>
+        <mu>1.2</mu>        <!-- Main friction coefficient -->
+        <mu2>1.2</mu2>      <!-- Secondary friction coefficient -->
+        <fdir1>1 0 0</fdir1>
+        <slip1>0.0</slip1>
+        <slip2>0.0</slip2>
+      </ode>
+    </friction>
+  </surface>
+</gazebo>
+
+<gazebo reference="wheel_2_2">
+  <mu1>1.2</mu1>
+  <mu2>1.2</mu2>
+  <surface>
+    <friction>
+      <ode>
+        <mu>1.2</mu>
+        <mu2>1.2</mu2>
+        <fdir1>1 0 0</fdir1>
+        <slip1>0.0</slip1>
+        <slip2>0.0</slip2>
+      </ode>
+    </friction>
+  </surface>
+</gazebo>
+
+
 </robot>

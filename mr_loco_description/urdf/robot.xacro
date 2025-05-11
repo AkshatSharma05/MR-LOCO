@@ -1,128 +1,154 @@
-<?xml version="1.0" ?>
+<?xml version="1.0"?>
 
 <robot xmlns:xacro="http://ros.org/wiki/xacro" name="urdf">
 
-  <xacro:include filename="$(find mr_loco_description)/urdf/robot.gazebo" />
+<xacro:include filename="$(find mr_loco_description)/urdf/robot.gazebo" />
+ <!-- Properties -->
+<xacro:property name="lidar_color" value="0 0 1 1.0"/>
+<xacro:property name="base_color" value="0.768627 0.886275 0.952941 1.0"/>
+<xacro:property name="wheel_color" value="0 0 0 1.0"/>
+<xacro:property name="mesh_path" value="package://assets"/>
 
   <!-- Link base_link -->
+
   <link name="base_link">
     <inertial>
-      <origin xyz="0.000530199 0.000890172 0.0186679" rpy="0 0 0"/>
-      <mass value="0.0779635"/>
-      <inertia ixx="5.83404e-05" ixy="-2.92702e-13" ixz="5.5501e-11" iyy="7.30224e-05" iyz="2.44364e-07" izz="3.22398e-05"/>
+      <origin xyz="0 0.0 0" rpy="0 0 0"/>
+      <mass value="20"/>
+      <inertia ixx="5.83404" ixy="-2.92702e-08" ixz="5.5501e-06" iyy="7.30224" iyz="2.44364e-02" izz="3.22398"/>
     </inertial>
-    <!-- Part lidar -->
-    <visual>
-      <origin xyz="0.000530168 0.000755187 -0.0120293" rpy="0 -0 0"/>
-      <geometry>
-        <mesh filename="file://$(find mr_loco_description)/meshes/lidar.stl"/>
-      </geometry>
-      <material name="lidar_material">
-        <color rgba="0 0 1 1.0"/>
-      </material>
-    </visual>
-    <collision>
-      <origin xyz="0.000530168 0.000755187 -0.0120293" rpy="0 -0 0"/>
-      <geometry>
-        <mesh filename="file://$(find mr_loco_description)/meshes/lidar.stl"/>
-      </geometry>
-    </collision>
-    <!-- Part base_link -->
-    <visual>
-      <origin xyz="0.000530227 0.00101263 -0.0120293" rpy="0 -0 0"/>
-      <geometry>
-        <mesh filename="file://$(find mr_loco_description)/meshes/base_link.stl"/>
-      </geometry>
-      <material name="base_link_material">
-        <color rgba="0.768627 0.886275 0.952941 1.0"/>
-      </material>
-    </visual>
-    <collision>
-      <origin xyz="0.000530227 0.00101263 -0.0120293" rpy="0 -0 0"/>
-      <geometry>
-        <mesh filename="file://$(find mr_loco_description)/meshes/base_link.stl"/>
-      </geometry>
-    </collision>
+
+
+<!-- Part base_link -->
+<visual>
+  <origin xyz="-0.0195735 0 -0.120293" rpy="0 0 0"/>
+  <geometry>
+    <mesh filename="file://$(find mr_loco_description)/meshes/base_link.stl" scale="10 10 10"/>
+  </geometry>
+  <material name="base_link_material">
+    <color rgba="${base_color}"/>
+  </material>
+</visual>
+<collision>
+  <origin xyz="-0.0195735 0 -0.120293" rpy="0 0 0"/>
+  <geometry>
+    <mesh filename="file://$(find mr_loco_description)/meshes/base_link.stl" scale="10 10 10"/>
+  </geometry>
+</collision>
+
   </link>
 
   <link name="imu_link">
-    <visual>
-      <origin xyz="0 0 0" rpy="0 0 0"/>
-      <geometry>
-        <box size="0.02 0.015 0.008"/>
-      </geometry>
-    </visual>
+      <visual>
+          <origin xyz="0 0 0" rpy="0 0 0"/>
+        <geometry>
+            <box size="0.02 0.015 0.008"/>
+          </geometry>
+        </visual>
   </link>
 
-
   <!-- Link wheel_2 -->
+
   <link name="wheel_2">
     <inertial>
-      <origin xyz="6.74047e-19 -1.20259e-19 -0.005" rpy="0 0 0"/>
-      <mass value="0.013823"/>
-      <inertia ixx="1.49749e-06" ixy="0" ixz="0" iyy="1.49749e-06" iyz="0" izz="2.7646e-06"/>
+      <origin xyz="6.74047e-18 0 -0.05" rpy="0 0 0"/>
+      <mass value="3.823"/>
+      <inertia ixx="0.149749" ixy="0" ixz="0" iyy="0.149749" iyz="0" izz="0.27646"/>
     </inertial>
-    <!-- Part wheel_2 -->
     <visual>
-      <origin xyz="0 -1.73472e-18 0.035" rpy="-1.5708 -1.5708 0"/>
+      <origin xyz="0 0 0.35" rpy="-1.5708 -1.5708 0"/>
       <geometry>
-        <mesh filename="file://$(find mr_loco_description)/meshes/wheel_2.stl"/>
+        <mesh filename="file://$(find mr_loco_description)/meshes/wheel_2.stl" scale="10 10 10"/>
       </geometry>
       <material name="wheel_2_material">
-        <color rgba="0 0 0 1.0"/>
+        <color rgba="${wheel_color}"/>
       </material>
     </visual>
     <collision>
-      <origin xyz="0 -1.73472e-18 0.035" rpy="-1.5708 -1.5708 0"/>
+      <origin xyz="0 0 0.35" rpy="-1.5708 -1.5708 0"/>
       <geometry>
-        <mesh filename="file://$(find mr_loco_description)/meshes/wheel_2.stl"/>
+        <mesh filename="file://$(find mr_loco_description)/meshes/wheel_2.stl" scale="10 10 10"/>
       </geometry>
     </collision>
   </link>
-  <!-- Joint from base_link to wheel_2 -->
+
+  <!-- Joint base_link to wheel_2 -->
+
   <joint name="wheel1" type="continuous">
-    <origin xyz="-0.0344698 0.00101263 -0.00952928" rpy="-1.5708 -0 -1.5708"/>
+    <origin xyz="-0.369574 0 -0.0952928" rpy="-1.5708 0 -1.5708"/>
     <parent link="base_link"/>
     <child link="wheel_2"/>
     <axis xyz="0 0 1"/>
-    <limit effort="10" velocity="10" lower="-3.141592653589793" upper="3.141592653589793"/>
   </joint>
+
   <!-- Link wheel_2_2 -->
+
   <link name="wheel_2_2">
     <inertial>
-      <origin xyz="6.74047e-19 -3.13421e-19 -0.005" rpy="0 0 0"/>
-      <mass value="0.013823"/>
-      <inertia ixx="1.49749e-06" ixy="-7.94422e-23" ixz="3.25253e-38" iyy="1.49749e-06" iyz="-2.08033e-38" izz="2.7646e-06"/>
+      <origin xyz="6.74047e-18 0 -0.05" rpy="0 0 0"/>
+      <mass value="3.823"/>
+      <inertia ixx="0.149749" ixy="0" ixz="0" iyy="0.149749" iyz="0" izz="0.27646"/>
     </inertial>
-    <!-- Part wheel_2_2 -->
     <visual>
-      <origin xyz="0 1.30104e-18 -0.045" rpy="1.5708 1.5708 0"/>
+      <origin xyz="0 0 -0.45" rpy="1.5708 1.5708 0"/>
       <geometry>
-        <mesh filename="file://$(find mr_loco_description)/meshes/wheel_2.stl"/>
+        <mesh filename="file://$(find mr_loco_description)/meshes/wheel_2.stl" scale="10 10 10"/>
       </geometry>
       <material name="wheel_2_2_material">
-        <color rgba="0 0 0 1.0"/>
+        <color rgba="${wheel_color}"/>
       </material>
     </visual>
     <collision>
-      <origin xyz="0 1.30104e-18 -0.045" rpy="1.5708 1.5708 0"/>
+      <origin xyz="0 0 -0.45" rpy="1.5708 1.5708 0"/>
       <geometry>
-        <mesh filename="file://$(find mr_loco_description)/meshes/wheel_2.stl"/>
+        <mesh filename="file://$(find mr_loco_description)/meshes/wheel_2.stl" scale="10 10 10"/>
       </geometry>
     </collision>
   </link>
-  <!-- Joint from base_link to wheel_2_2 -->
+
+  <!-- Joint base_link to wheel_2_2 -->
+
   <joint name="wheel2" type="continuous">
-    <origin xyz="0.0455302 0.00101263 -0.00952928" rpy="-1.5708 1.38644 -1.5708"/>
+    <origin xyz="0.430426 0.0 -0.0952928" rpy="-1.5708 0 -1.5708"/>
     <parent link="base_link"/>
     <child link="wheel_2_2"/>
     <axis xyz="0 0 1"/>
-    <limit effort="10" velocity="10" lower="-3.141592653589793" upper="3.141592653589793"/>
   </joint>
 
-    <joint name="imu_joint" type="fixed">
-    <origin xyz="0 0 0.05" rpy="0 0 0"/>
+  <joint name="imu_joint" type="fixed">
+    <origin xyz="0 0.0 0.2" rpy="0 0 0"/>
     <parent link="base_link"/>
     <child link="imu_link"/>
-  </joint>
+    <axis xyz="0 0 0" />
+  </joint> 
+
+  <link name="lidar_link">
+  <inertial>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <mass value="4.0"/> <!-- Set desired mass -->
+    <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find mr_loco_description)/meshes/lidar.stl" scale="10 10 10"/>
+    </geometry>
+    <material name="lidar_material">
+      <color rgba="${lidar_color}"/>
+    </material>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="file://$(find mr_loco_description)/meshes/lidar.stl" scale="10 10 10"/>
+    </geometry>
+  </collision>
+</link>
+
+<joint name="lidar_joint" type="fixed">
+  <origin xyz="-0.0195741 0.0 -0.120293" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="lidar_link"/>
+</joint>
+
 </robot>
